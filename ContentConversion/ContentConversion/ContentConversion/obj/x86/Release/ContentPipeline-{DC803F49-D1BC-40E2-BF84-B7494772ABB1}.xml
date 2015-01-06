@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{DC803F49-D1BC-40E2-BF84-B7494772ABB1}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>O:\OneDrive\MT\HCI\Prototype\itss\ContentConversion\ContentConversion\ContentConversionContent\</RootDirectory>
+      <LoggerRootDirectory>O:\OneDrive\MT\HCI\Prototype\itss\ContentConversion\ContentConversion\ContentConversion\</LoggerRootDirectory>
+      <IntermediateDirectory>O:\OneDrive\MT\HCI\Prototype\itss\ContentConversion\ContentConversion\ContentConversion\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>O:\OneDrive\MT\HCI\Prototype\itss\ContentConversion\ContentConversion\ContentConversion\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-11-25T17:36:10.6394994+01:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
