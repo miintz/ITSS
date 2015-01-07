@@ -27,13 +27,13 @@ namespace ITSS.TheGUI
             TimerSprite = SingularContent.Load<Texture2D>("tex/gui/timer");      
             TimerPos = Vector2.Zero;
 
-            TimerRect = new Rectangle((int)initialposition.X, (int)initialposition.Y, 5, 5);
+            TimerRect = new Rectangle((int)initialposition.X, (int)initialposition.Y, 5, 5); 
         }
 
         public void Draw(ref SpriteBatch spriteBatch)
         {
             if (Active)
-            {
+            {                
                 spriteBatch.Draw(TimerSprite, TimerRect, Color.White);
             }
         }
@@ -41,13 +41,17 @@ namespace ITSS.TheGUI
         public void SetPosition(Vector2 newpos)
         {
             TimerPos = newpos;
-            TimerRect = new Rectangle((int)newpos.X, (int)newpos.Y, 5, 5);
+            TimerRect = new Rectangle((int)newpos.X, (int)newpos.Y - 50, 5 + Percentage, 5 + Percentage); //set pos and update scale
         }
 
         public void GrowTimer()
         {
             this.Percentage++;
-            TimerRect = new Rectangle(TimerRect.X, TimerRect.Y, 5 + Percentage, 5 + Percentage);
+            
+            //TimerRect = new Rectangle(TimerRect.X, TimerRect.Y, 5 + Percentage, 5 + Percentage);
+            //TimerRect = new Rectangle((int)TimerRect.X - (int)(2.5 + Percentage), (int)TimerRect.Y - (int)(2.5 + Percentage), (int)5 + Percentage, (int)5 + Percentage); //set pos and update scale
+            
+            System.Console.WriteLine(TimerRect.ToString());
         }
 
         public Texture2D TimerSprite { get; set; }

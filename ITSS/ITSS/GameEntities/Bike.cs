@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ITSS
+namespace ITSS.GameEntities
 {    
     public class Bike
     {
@@ -14,22 +14,25 @@ namespace ITSS
         private Rectangle BikeRect;
         private Texture2D BikeSprite;
 
-        private SpriteBatch SingularSprite;
+        public Boolean Enabled = false;
+
         private ContentManager SingularContent;
 
-        public Bike(ContentManager Content, SpriteBatch Sprite)
+        public Rectangle Entrance;
+        public Rectangle Exit;
+
+        public Bike(ContentManager Content)
         {
             SingularContent = Content;
-            SingularSprite = Sprite;
-
-
-            BikePos = new Vector2(0, 350);
-            BikeRect = new Rectangle(0, 0, 100, 46);            
+           
+            BikePos = new Vector2(0, 0);
+            BikeRect = new Rectangle(0, 0, 50, 23);            
         }
 
         public void Load()
         {
-            BikeSprite = SingularContent.Load<Texture2D>("bicycle_top");
+            BikePos = new Vector2(Entrance.X + 50, Entrance.Y + 50);
+            BikeSprite = SingularContent.Load<Texture2D>("tex/vehicle/bicycle_top");
         }
 
         public void MoveTo(int x, int y)
@@ -45,8 +48,11 @@ namespace ITSS
 
         public void Draw(ref SpriteBatch spriteBatch)
         {            
-            BikeRect = new Rectangle((int)BikePos.X, (int)BikePos.Y, 100, 46);
-            spriteBatch.Draw(BikeSprite, BikeRect, Color.White);            
+            if(Enabled)
+            { 
+                BikeRect = new Rectangle((int)BikePos.X, (int)BikePos.Y, 50, 23);
+                spriteBatch.Draw(BikeSprite, BikeRect, Color.White);            
+            }
         }
     }
 }
