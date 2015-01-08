@@ -1,4 +1,4 @@
-﻿    #region Using Statements
+﻿#region Using Statements
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -20,7 +20,7 @@ namespace ITSS
     /// </summary>
     public class ITSS : Game
     {
-        GraphicsDeviceManager graphics; 
+        GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Texture2D GameBackground;
@@ -30,7 +30,7 @@ namespace ITSS
         public GUI TheGUI;
         private Level TheLevel;
 
-        private ITSS that ;
+        private ITSS that;
 
         public ITSS()
             : base()
@@ -39,7 +39,7 @@ namespace ITSS
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
+
             //graphics.PreferredBackBufferHeight = 1080 - (1080 / 8);
             //graphics.PreferredBackBufferWidth = 1920 - (1920 / 8);
 
@@ -57,9 +57,9 @@ namespace ITSS
             graphics.ApplyChanges();
 
             TheGUI = new GUI(Content);
-            TheLevel = new Level(Content, ref that);                               
+            TheLevel = new Level(Content, ref that);
         }
-             
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -69,14 +69,14 @@ namespace ITSS
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            GameBackground = Content.Load<Texture2D>("tex/terrain/background_void");
+            //GameBackground = Content.Load<Texture2D>("tex/terrain/background_void");
             TheGUI.Load();
             TheLevel.Load("-1");
         }
-      
+
         protected override void UnloadContent()
         {
-            
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -86,25 +86,25 @@ namespace ITSS
 
             base.Update(gameTime);
         }
-      
+
         protected override void Draw(GameTime gameTime)
-        {                        
+        {
             //muis ingeklikt?
             handleMouseState();
             handleKeyPressed();
-  
+
             //we moeten mogelijk iets doen met bepaalde collisions dingen...
             if ((TheLevel.collisionManager.CurrentMenuCollidable != Rectangle.Empty) && (TheLevel.currentLevel == "Help" || TheLevel.currentLevel == "-1" || TheLevel.currentLevel == "0"))
             {
                 switch (TheLevel.collisionManager.CurrentMenuCollidableType)
-                { 
+                {
                     case 0: //initial start screen
                         TheLevel.collisionManager.MenuCollidables[0] = Rectangle.Empty;
                         TheLevel.Load("0");
                         break;
                     case 1: //help screen
                         TheLevel.Load("Help");
-                        break;  
+                        break;
                     case 2: //first level
                         TheLevel.Load("1");
                         break;
@@ -117,16 +117,16 @@ namespace ITSS
                 TheLevel.collisionManager.CurrentMenuCollidable = Rectangle.Empty;
                 TheLevel.collisionManager.CurrentMenuCollidableType = Int32.MaxValue;
             }
-            
+
             if (TheLevel.collisionManager.CurrentSidewalkCollidable != Rectangle.Empty)
                 TheGUI.subtractScore();
-                
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();  
-        
+            GraphicsDevice.Clear(Color.White);
+
+            spriteBatch.Begin();
+
             TheLevel.Draw(ref spriteBatch);
-                        
+
             if (TheLevel.currentLevel != "0" && TheLevel.currentLevel != "-1" && TheLevel.currentLevel != "4" && TheLevel.currentLevel != "Help") //STATISCH, niet goed
                 TheGUI.Draw(ref spriteBatch, true);
             else
@@ -138,7 +138,7 @@ namespace ITSS
         }
 
         private void handleMouseState()
-        {            
+        {
             TheLevel.handleMouseState();
             TheGUI.handleMouseState();
         }
@@ -154,7 +154,7 @@ namespace ITSS
             }
             if (ks.IsKeyDown(Keys.F2))
             {
-                TheLevel.Load("2");                
+                TheLevel.Load("2");
                 TheGUI.setLevel("2");
             }
             if (ks.IsKeyDown(Keys.F3))
@@ -187,3 +187,4 @@ namespace ITSS
         }
     }
 }
+    

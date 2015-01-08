@@ -21,7 +21,7 @@ namespace ITSS
 
         Texture2D[] RoadTiles = new Texture2D[999];
         Texture2D[] SignTiles = new Texture2D[3];
-        
+
         public List<Vehicle> Vehicles = new List<Vehicle>();
         public List<Pedestrian> Pedestrians = new List<Pedestrian>();
         Bike TheBike;
@@ -47,23 +47,23 @@ namespace ITSS
             GameRef = Ref;
 
             SingularContent = Content;
-            TheBike = new Bike(Content);                 
+            TheBike = new Bike(Content);
         }
 
         public void Load(String level)
-        {            
+        {
             currentLevel = level;
-       
+
             TheBike = new Bike(SingularContent);
             TheBike.Entrance = collisionManager.EntranceCollidable;
             TheBike.Load();
-                
+
             if (level != "-1" && level != "0")
             {
                 LoadSigns();
                 LoadVehicles();
                 TheBike.Enabled = true;
-            }        
+            }
 
             LoadLevel();
 
@@ -81,7 +81,7 @@ namespace ITSS
 
             Vehicles = new List<Vehicle>();
             Pedestrians = new List<Pedestrian>();
-            if(File.Exists("Content/maps/area" + currentLevel + "_vehicles.txt"))
+            if (File.Exists("Content/maps/area" + currentLevel + "_vehicles.txt"))
             {
                 String[] Lines = System.IO.File.ReadAllLines("Content/maps/area" + currentLevel + "_vehicles.txt");
                 foreach (String Line in Lines)
@@ -114,7 +114,7 @@ namespace ITSS
                                     pedestrian.setEnd(new Vector2((150 * x) + 50, 150 * y));
                                     Pedestrians.Add(pedestrian);
                                 }
-                                break;                                
+                                break;
                             case "p1b":
                                 if (Pedestrians.Count != 0)
                                     Pedestrians.First().setPause(new Vector2((150 * x) + 50, 150 * y));
@@ -135,7 +135,7 @@ namespace ITSS
 
                                     pedestrian.setEnd(new Vector2((150 * x) + 50, 150 * y));
                                     Pedestrians.Add(pedestrian);
-                                }                                
+                                }
                                 break;
                             case "cb":
                                 if (Vehicles.Count != 0)
@@ -226,7 +226,7 @@ namespace ITSS
                     p.Load();
                 }
             }
-      
+
             //load timer
             Timer = new GUITimer(SingularContent);
             Timer.Load(TheBike.GetPosition());
@@ -247,7 +247,7 @@ namespace ITSS
                     foreach (String indice in indices)
                     {
                         switch (indice)
-                        {                                
+                        {
                             case "1":
                                 SignTiles[1] = SingularContent.Load<Texture2D>("tex/sign/sign_takeway");
                                 break;
@@ -311,7 +311,7 @@ namespace ITSS
                         case "32":
                             RoadTiles[32] = SingularContent.Load<Texture2D>("tex/terrain/hor");
                             TheBike.Exit = new Rectangle(150 * x, 150 * y, 150, 150);
-                            break;                        
+                            break;
                         case "6":
                             RoadTiles[6] = SingularContent.Load<Texture2D>("tex/terrain/turn_rtt");
                             break;
@@ -319,7 +319,7 @@ namespace ITSS
                             RoadTiles[7] = SingularContent.Load<Texture2D>("tex/terrain/turn_ttr");
                             break;
                         case "20":
-                            RoadTiles[20] = SingularContent.Load<Texture2D>("tex/gui/start_btn"); 
+                            RoadTiles[20] = SingularContent.Load<Texture2D>("tex/gui/start_btn");
                             break;
                         case "21":
                             RoadTiles[21] = SingularContent.Load<Texture2D>("tex/gui/help_btn");
@@ -332,10 +332,10 @@ namespace ITSS
                             break;
                         case "99":
                             RoadTiles[99] = SingularContent.Load<Texture2D>("tex/gui/endgame_btn");
-                            break;                        
+                            break;
                     }
-                    
-                    if(indice != "Help")
+
+                    if (indice != "Help")
                         collisionManager.addCollidable(new Rectangle(150 * x, 150 * y, 150, 150), Int32.Parse(indice));
 
                     x++;
@@ -343,11 +343,11 @@ namespace ITSS
 
                 x = 0;
                 y++;
-            }       
+            }
         }
 
         public void Draw(ref SpriteBatch spriteBatch)
-        {            
+        {
             //DRAW stuff
             Int32 sizex = (Int32)GameRef.Resolution.X / 10;
             Int32 sizey = (Int32)GameRef.Resolution.Y / 10;
@@ -358,10 +358,10 @@ namespace ITSS
             String[] AreaLines = System.IO.File.ReadAllLines("Content/maps/area" + currentLevel + ".txt");
 
             foreach (String Line in AreaLines)
-            {                
+            {
                 String[] indices = Line.Split(new char[] { ',' });
                 foreach (String indice in indices)
-                {                        
+                {
                     if (indice == "0")
                     {
                         if (currentLevel != "-1" && currentLevel != "0" && currentLevel != "4")
@@ -474,8 +474,8 @@ namespace ITSS
                     }
                 }
             }
-            else if(Timer != null)
-            { 
+            else if (Timer != null)
+            {
                 //mogelijk is het te dichtbij
                 if (Timer.Active && (BikeTooCloseToVehicle || BikeTooCloseToPedestrian))
                 {
@@ -513,7 +513,7 @@ namespace ITSS
 
                     this.PossibleRightOfWaySituationVehicle = collisionManager.ObjectToObjectClose(TheBike.GetPosition(), vehicle.getPosition());
                     this.BikeTooCloseToVehicle = collisionManager.IsObjectTooCloseTo(TheBike.GetPosition(), vehicle.getPosition(), vehicle);
-                }                    
+                }
             }
 
             foreach (Pedestrian pedestrian in Pedestrians)
@@ -526,7 +526,7 @@ namespace ITSS
 
                     this.PossibleRightOfWaySituationPedestrian = collisionManager.ObjectToObjectClose(TheBike.GetPosition(), pedestrian.getPosition());
                     this.BikeTooCloseToPedestrian = collisionManager.IsObjectTooCloseTo(TheBike.GetPosition(), pedestrian.getPosition(), pedestrian);
-                }         
+                }
             }
 
             if (TheBike.Enabled)
@@ -546,7 +546,7 @@ namespace ITSS
                 {
                     GTimer.Draw(ref spriteBatch);
                     GTimer.GrowTimer();
-                    GTimer.SetPosition(TheBike.GetPosition()); 
+                    GTimer.SetPosition(TheBike.GetPosition());
                 }
             }
             else
@@ -606,7 +606,7 @@ namespace ITSS
         private void ContinueMovingPedestrians(object state)
         {
             foreach (Pedestrian pedestrian in Pedestrians)
-            {                
+            {
                 pedestrian.Moving = true;
             }
 
@@ -617,7 +617,7 @@ namespace ITSS
         public void ContinueMovingPedestrians()
         {
             foreach (Pedestrian pedestrian in Pedestrians)
-            {             
+            {
                 pedestrian.Moving = true;
             }
         }
@@ -650,12 +650,12 @@ namespace ITSS
         }
 
         private void DisposeContent()
-        {            
+        {
             foreach (Vehicle v in Vehicles)
             {
                 if (v.DisposeMe)
                 {
-                    v.Dispose();                    
+                    v.Dispose();
                 }
             }
         }

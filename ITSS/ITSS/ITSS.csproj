@@ -35,8 +35,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bike.cs" />
     <Compile Include="CollisionManager.cs" />
+    <Compile Include="GameEntities\Bike.cs" />
+    <Compile Include="GameEntities\Pedestrian.cs" />
+    <Compile Include="GameEntities\TrafficLight.cs" />
+    <Compile Include="GameEntities\Vehicle.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="TUIO\OSC.NET\OSCBundle.cs" />
     <Compile Include="TUIO\OSC.NET\OSCMessage.cs" />
@@ -150,7 +153,10 @@
     <Content Include="Content\tex\terrain\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\tex\terrain\background_void.png">
+    <Content Include="Content\tex\terrain\zebhor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\tex\terrain\zebver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tex\vehicle\car_top.png">
@@ -163,7 +169,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tex\vehicle\bicycle_top.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tex\gui\cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -184,6 +190,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tex\terrain\ver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\tex\vehicle\pedestrian.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ITSS.GameEntities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ITSS
 
         //menucollision
         public Rectangle[] MenuCollidables = new Rectangle[4];
-        
+
         //menucollision
         Rectangle[] EntranceCollidables = new Rectangle[2];
 
@@ -31,7 +32,9 @@ namespace ITSS
         public Rectangle EntranceCollidable;
         public Rectangle ExitCollidable;
 
+
         public Vehicle ClosestVehicle;
+        public Pedestrian ClosestPedestrian;
 
         public int CurrentMenuCollidableType = 0;
 
@@ -74,7 +77,7 @@ namespace ITSS
                     case 21:
                         MenuCollidables[1] = collidable;
                         break;
-                    case 22:                        
+                    case 22:
                         MenuCollidables[2] = collidable;
                         break;
                     case 23:
@@ -85,14 +88,14 @@ namespace ITSS
                         break;
                     case 32:
                         ExitCollidable = collidable;
-                        break;                    
+                        break;
                 }
             }
         }
 
         public void checkCollisions(Vector2 position, Boolean checkmenu)
         {
-            if(checkmenu)
+            if (checkmenu)
                 checkMenuCollisions(position);
 
             checkBackgroundCollisions(position);
@@ -120,8 +123,8 @@ namespace ITSS
             else
                 CurrentExitCollidable = Rectangle.Empty;
         }
-        
-        public Timer Delay;        
+
+        public Timer Delay;
 
         public void checkMenuCollisions(Vector2 position)
         {
@@ -146,9 +149,9 @@ namespace ITSS
                     }
                     i++;
                 }
-            }           
+            }
         }
-        
+
         public Rectangle B = Rectangle.Empty;
         public Int32 A = 0;
 
@@ -163,13 +166,13 @@ namespace ITSS
         {
             int i = 0;
             foreach (Rectangle Collidable in BackgroundCollidables)
-            {                
+            {
                 Boolean inx = (position.X > Collidable.X && position.X < (Collidable.X + Collidable.Width));
-                Boolean iny = (position.Y > Collidable.Y && position.Y < (Collidable.Y + Collidable.Height));                
+                Boolean iny = (position.Y > Collidable.Y && position.Y < (Collidable.Y + Collidable.Height));
 
                 if (inx && iny) //er is een collision met een weg
                 {
-                    CurrentBackgroundCollidable = Collidable; 
+                    CurrentBackgroundCollidable = Collidable;
                     //check de sidewalk nu
                     checkSidewalkCollision(position);
                     break;
@@ -181,7 +184,7 @@ namespace ITSS
 
         public void checkSidewalkCollision(Vector2 position)
         {
-            foreach(Rectangle Sidewalk in SidewalkCollidables)
+            foreach (Rectangle Sidewalk in SidewalkCollidables)
             {
                 Boolean inx = (position.X > Sidewalk.X && position.X < (Sidewalk.X + Sidewalk.Width));
                 Boolean iny = (position.Y > Sidewalk.Y && position.Y < (Sidewalk.Y + Sidewalk.Height));
@@ -197,7 +200,13 @@ namespace ITSS
             CurrentSidewalkCollidable = Rectangle.Empty; //lang leve empty
         }
 
-        public Boolean ObjectToObjectDistance(Vector2 o1, Vector2 o2)
+        public double ObjectToObjectDistance(Vector2 o1, Vector2 o2)
+        {
+            double dist = Vector2.Distance(o1, o2);
+            return dist;
+        }
+
+        public Boolean ObjectToObjectClose(Vector2 o1, Vector2 o2)
         {
             double dist = Vector2.Distance(o1, o2);
             return (dist < 160 && dist > 80);
@@ -205,10 +214,21 @@ namespace ITSS
 
         public Boolean IsObjectTooCloseTo(Vector2 o1, Vector2 o2, object save = null)
         {
-            double dist = Vector2.Distance(o1, o2);
-            ClosestVehicle = (Vehicle)save;
-            
-            return (dist < 120);            
+            double dist = 0.0;
+
+            if (save.GetType() == typeof(Vehicle))
+            {
+                dist = Vector2.Distance(o1, o2);
+                ClosestVehicle = (Vehicle)save;
+            }
+
+            if (save.GetType() == typeof(Pedestrian))
+            {
+                dist = Vector2.Distance(o1, o2);
+                ClosestPedestrian = (Pedestrian)save;
+            }
+
+            return (dist < 120);
         }
     }
 }
