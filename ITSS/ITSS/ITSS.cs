@@ -23,7 +23,7 @@ namespace ITSS
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D GameBackground;
+        Listener TUIOListener;        
 
         public Vector2 Resolution;
 
@@ -36,6 +36,9 @@ namespace ITSS
             : base()
         {
             that = this;
+
+            TUIOListener = new Listener();
+            TUIOListener.Construct(new String[] { "3333" });
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
